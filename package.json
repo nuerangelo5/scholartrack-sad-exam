@@ -1,0 +1,12 @@
+{
+  "name": "scholartrack-sad-exam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Student Scholarship Monitoring and Academic Compliance System – SAD Lab Exam Section B",
+  "scripts": {
+    "start": "npx --yes serve . -p 5500",
+    "serve": "npx --yes serve . -p 5500"
+  },
+  "keywords": ["scholarship", "supabase", "sad", "lab-exam"],
+  "license": "UNLICENSED"
+}
