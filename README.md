@@ -1,148 +1,114 @@
 # ScholarTrack
+**Student Scholarship Monitoring and Academic Compliance System**
 
-**Student Scholarship Monitoring and Academic Compliance System**  
-Systems Analysis and Design · Comprehensive Laboratory Examination · **Section B**
-
-| Field | Detail |
-|-------|--------|
-| **Student** | Angelo Nuer |
-| **Program / Section** | BSIT-3B |
-| **Stack** | HTML · CSS · JavaScript · Supabase · GitHub Pages |
-| **UI** | Liquid Glass |
-| **Live URL** | https://nuerangelo5.github.io/scholartrack-sad-exam/ |
-| **Repository** | https://github.com/nuerangelo5/scholartrack-sad-exam |
-| **Supabase project** | `cvrdjaxyevgkguofypkm` |
+Systems Analysis and Design · Laboratory Examination – Section B  
+**Student:** Angelo Nuer  
+**Program / Section:** BSIT-3B  
+**Repository:** [scholartrack-sad-exam](https://github.com/nuerangelo5/scholartrack-sad-exam)  
+**Live demo:** https://nuerangelo5.github.io/scholartrack-sad-exam/
 
 ---
 
-## 1. Project overview
+## Overview
 
-ScholarTrack is a browser-based MVP for the Scholarship Office. It replaces fragmented spreadsheets and email with a single flow:
+ScholarTrack is a browser-based minimum viable system for the Scholarship Office. It supports two roles:
 
-1. Staff register scholars and assign **Excellence Scholar** or **Access Scholar**
-2. Scholars submit semester academic summaries + grade-document reference
-3. Staff verify evidence, evaluate policy compliance, and record renewal decisions
+- **Scholar** – submit semester academic summaries and a grade-document reference; view own status; correct returned submissions  
+- **Scholarship Staff** – register scholars, assign programs, verify evidence, evaluate policy compliance, record renewal decisions, search/filter, and view audit history  
 
-Official grades and payments stay outside this system (Registrar remains source of truth).
-
----
-
-## 2. Live demo
-
-**URL:** https://nuerangelo5.github.io/scholartrack-sad-exam/
-
-### Test accounts (Supabase Auth)
-
-| Name | Email | Password | Role |
-|------|-------|----------|------|
-| Angelo | ana.reyes@student.edu | Scholar123! | scholar |
-| Staff | staff@scholartrack.edu | Staff123! | staff |
-
-**Demo Staff / Demo Scholar** buttons work offline without credentials (exam fallback).
+Policies for **Excellence Scholar** and **Access Scholar** are read from persisted program records (not hard-coded in evaluation logic).
 
 ---
 
-## 3. Features (Part II)
+## Tech stack
 
-| Feature | Status |
-|---------|--------|
-| Role-based access (Staff / Scholar) | Done |
-| Scholar registration + program assignment | Done |
-| Grade submission, validation, duplicate prevention | Done |
-| Verify / Return / Resubmit | Done |
-| Program-based compliance + deficiency reasons | Done |
-| Renewal decision (Approved / Held) | Done |
-| Dashboard counts, search, filters | Done |
-| Audit history | Done |
-| Seed records B01–B06 (demo) | Done |
-
-### Policy rules (examination)
-
-| Rule | Excellence Scholar | Access Scholar |
-|------|--------------------|----------------|
-| Max GWA | 2.00 | 2.50 |
-| Min units | 18 | 15 |
-| Failed / Incomplete | 0 / 0 | 0 / 0 |
-| Dropped | 0 | 1 |
-| Deadline | 2026-11-06 17:00 Asia/Manila | same |
+- Frontend: HTML, CSS (Liquid Glass), vanilla JavaScript (ES modules)
+- Backend / Auth: Supabase (PostgreSQL + Auth)
+- Hosting: GitHub Pages
+- No build step required
 
 ---
 
-## 4. Analysis artifacts (Part I)
+## Quick start (local)
 
-| Artifact | Location / name |
-|----------|-----------------|
-| Requirements analysis (A1–A6) | `docs/Part_I_Analysis_and_Design.docx` |
-| **UML Use Case Diagram** | *ScholarTrack Use Case Diagram* (actors: Scholarship Staff, Scholar; system boundary ScholarTrack) |
-| **Entity-Relationship Diagram** | Supabase Schema Visualizer · public schema (profiles, programs, scholars, submissions, evaluations, renewal_decisions, audit_log) |
-| Traceability matrix | Inside Part I document |
-| Test results template | `docs/Test_Results_TC01-TC10.md` |
+1. Clone or download this repository.
+2. Open `index.html` in a modern browser (Chrome / Edge / Firefox), **or** serve the folder with any static server.
+3. Use the **Demo Staff** / **Demo Scholar** buttons for offline exam use, or sign in with the test accounts below.
 
-### Use case list
-
-- UC01 Authenticate  
-- UC02 Register Scholar and Assign Program  
-- UC03 Submit Semester Grades  
-- UC04 Verify Evidence  
-- UC05 Correct and Resubmit Grades  
-- UC06 Evaluate Compliance  
-- UC07 Record Renewal Decision  
-- UC08 View Dashboard and Search  
-- UC09 View Own Submission Status  
-- UC10 View Audit History  
-
-**Include:** UC06 includes UC04; UC07 includes UC06  
-**Extend:** UC05 extends UC03  
+No `npm install` is required for the core UI.
 
 ---
 
-## 5. Setup
+## Live site
 
-```bash
-npm start
-# or serve the repo root on GitHub Pages (already configured)
-```
-
-### Supabase
-
-1. Run `supabase/schema.sql` in SQL Editor  
-2. Create Auth users (table above)  
-3. Run `docs/AUTH_SETUP.sql` (or profile insert SQL)  
-4. Optional: `docs/SEED_B01_B06.sql`  
-5. Auth → URL config → add `https://nuerangelo5.github.io/scholartrack-sad-exam/`
-
-Config: `src/supabase-config.js` (`USE_SUPABASE = true`).
+https://nuerangelo5.github.io/scholartrack-sad-exam/
 
 ---
 
-## 6. Project structure
+## Test accounts (for instructor)
 
-```
-scholartrack-sad-exam/
-├── index.html
-├── package.json
-├── README.md
-├── docs/
-│   ├── Part_I_Analysis_and_Design.docx
-│   ├── AUTH_SETUP.sql
-│   ├── SEED_B01_B06.sql
-│   ├── SUPABASE_SETUP.md
-│   └── Test_Results_TC01-TC10.md
-├── src/
-│   ├── main.js
-│   ├── style.css
-│   ├── data.js
-│   └── supabase-config.js
-└── supabase/
-    └── schema.sql
-```
+| Role   | Email                     | Password    | Notes                          |
+|--------|---------------------------|-------------|--------------------------------|
+| Staff  | staff@scholartrack.edu    | Staff123!   | Full dashboard & all actions   |
+| Scholar| ana.reyes@student.edu     | Scholar123! | Linked to seed scholar B01 (Angelo) |
+
+**Demo buttons** (no network required):
+
+- **Demo Staff** – same staff capabilities using in-memory seed  
+- **Demo Scholar** – same scholar capabilities (B01)
 
 ---
 
-## 7. Out of scope (per exam)
+## Environment / configuration
 
-Live Registrar API, payment release, SMS, machine learning, full appeal workflow.
+| Name | Location | Purpose |
+|------|----------|---------|
+| `SUPABASE_URL` | `src/supabase-config.js` | Project URL |
+| `SUPABASE_ANON_KEY` | `src/supabase-config.js` | Public anon key only (never service_role) |
+| `USE_SUPABASE` | `src/supabase-config.js` | `true` = real Auth; demo buttons still work |
+
+Do **not** put service-role keys or database passwords in the repo or screenshots.
 
 ---
 
-*Angelo Nuer · BSIT-3B · SAD Laboratory Examination Section B*
+## Database setup (optional live mode)
+
+1. In Supabase SQL Editor, run:
+   - `supabase/schema.sql`
+   - `docs/SEED_B01_B06.sql` (or `docs/FULL_SETUP_FOR_LIVE_LOGIN.sql`)
+2. Create Auth users (Authentication → Users) matching the test emails above; enable Auto Confirm.
+3. Run the profile / scholar link statements in `docs/AUTH_SETUP.sql` or the full setup script.
+4. Set `USE_SUPABASE = true` in `src/supabase-config.js` and hard-refresh the app.
+
+---
+
+## Seed records (B01–B06)
+
+Academic Year **2026–2027**, Semester **1**. Policy thresholds and expected outcomes follow the examination paper (Excellence / Access rules, deadline 2026-11-06 17:00 Asia/Manila).
+
+| ID  | Program    | Focus of test                          |
+|-----|------------|----------------------------------------|
+| B01 | Excellence | Compliant at GWA and deadline boundary |
+| B02 | Excellence | GWA above limit → With Deficiency      |
+| B03 | Access     | One dropped allowed → Compliant        |
+| B04 | Access     | Units + incomplete → With Deficiency   |
+| B05 | Excellence | Failed + late → With Deficiency        |
+| B06 | Access     | Pending verification (gate tests)      |
+
+---
+
+## Features implemented
+
+- Role-based login (Supabase Auth + offline demo)
+- Scholar registration and program assignment
+- Grade submission with validation and duplicate prevention
+- Verification (Verified / Returned) and correction/resubmit
+- Program-based compliance evaluation with deficiency reasons
+- Renewal decision (Approved only if Compliant; else Held)
+- Dashboard counts, search (student ID / name), filters
+- Audit log (verification, evaluation, renewal)
+- Persistence via seed + optional Supabase
+
+---
+
+## Project structure
